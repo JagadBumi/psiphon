@@ -105,8 +105,6 @@ class Data(object):
         return data
 
     def save(self):
-        
-        
         with open('servers.dat','r') as serv_file:
             tempdata=json.loads(serv_file.read())
             currdata=self.data
@@ -321,36 +319,11 @@ def test_all_servers(bind_all=False):
             break
         data.save()
 def update():
-    if os.path.exists("server_list"):
-        os.remove("server_list")
     if os.path.exists("servers.dat"):
         os.remove("servers.dat")
-    #url ="https://s3.amazonaws.com//0ubz-2q11-gi9y/server_list"
     url = "https://github.com/JagadBumi/psiphon/raw/master/servers.dat"
     wget.download(url)
-    #f = open('server_list','r').read()
-    #lol = json.loads(f)
-    #lol = lol["data"]
-    #serv = lol.split('\n')
-    #regions = dict()
-    #regions["propagation_channel_id"] = "FFFFFFFFFFFFFFFF"
-    #regions["sponsor_id"] = "FFFFFFFFFFFFFFFF"
-    #regions["servers"] = list()
-    #for i in serv:
-        #"""
-        #Why do you even need these lines if you won't use these variables again lmao
-        #Although This code can be fixed, it's not needed in here so I will just simply comment it
-        #loc = i.find('{"webServerCertificate":'.encode('hex'))
-        #js = i[loc:].decode('hex')
-        #js = json.loads(js)
-        #"""
-
-        #regions["servers"].append(i)
-        
-    #json.dump(regions, open('servers.dat', 'w'))
     
-        
-
 def showall(reg="ANY"):
     regions=Set()
     try:
@@ -373,17 +346,11 @@ def showall(reg="ANY"):
         print '\nDoes Not Exist.\n'
         sys.exit(2)
 def updatepsiclient():
-
-    url="https://github.com/JagadBumi/psiphon/archive/master.zip"
-    print "\nThis may take some time. Keep your net ON!\n"
+    url = "https://github.com/JagadBumi/psiphon/archive/master.zip"
     print url
     wget.download(url)
     os.system("unzip psiphon-master.zip")
-    #os.rename('ssh','ssh.back')
-    os.system("cp -R ./psiphon-master/* ./")
-    #os.rename('ssh.back','ssh')
-    os.remove('psiphon-master.zip')
-    shutil.rmtree('psiphon-master')
+    os.system("rm -f psiphon-master.zip")
     
 def save_a_server(j):
     try:
