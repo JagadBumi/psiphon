@@ -321,7 +321,7 @@ def test_all_servers(bind_all=False):
 def update():
     if os.path.exists("servers.dat"):
         os.remove("servers.dat")
-    url = "https://github.com/JagadBumi/psiphon/raw/master/servers.dat"
+    url = "https://raw.githubusercontent.com/JagadBumi/psiphon/main/servers.dat"
     wget.download(url)
     
 def showall(reg="ANY"):
