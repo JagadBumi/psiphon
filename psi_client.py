@@ -318,12 +318,7 @@ def test_all_servers(bind_all=False):
             print "could not reorder servers"
             break
         data.save()
-def update():
-    if os.path.exists("servers.dat"):
-        os.remove("servers.dat")
-    url = "https://raw.githubusercontent.com/JagadBumi/psiphon/main/servers.dat"
-    wget.download(url)
-    
+        
 def showall(reg="ANY"):
     regions=Set()
     try:
@@ -345,14 +340,6 @@ def showall(reg="ANY"):
     except (IOError, ValueError, KeyError, IndexError, TypeError) as error:
         print '\nDoes Not Exist.\n'
         sys.exit(2)
-def updatepsiclient():
-    url = "https://github.com/JagadBumi/psiphon/archive/master.zip"
-    print url
-    wget.download(url)
-    os.system("unzip psiphon-master.zip")
-    os.system("cp -rf psiphon-master/* ./")
-    os.system("rm -rf psiphon-master")
-    os.system("rm -rf psiphon-master.zip")
     
 def save_a_server(j):
     try:
@@ -414,34 +401,22 @@ def clear_saved_server():
 if __name__ == "__main__":
     
     parser = optparse.OptionParser('usage: %prog [options]')
-    parser.add_option("--expose", "-e", dest="expose",     
-                        action="store_true", help="Expose SOCKS proxy to the network")
-    parser.add_option("--test-servers", "-t", dest="test_servers",
-                        action="store_true", help="Test all servers")
+    parser.add_option("--expose", "-e", dest="expose", action="store_true", help="Expose SOCKS proxy to the network")
+    parser.add_option("--test-servers", "-t", dest="test_servers", action="store_true", help="Test all servers")
     parser.add_option("--reg", "-r", dest="region",action="store", help="Regions")
     parser.add_option("--show","-s", dest="show_servers",action="store_true", help="Show available servers")
-    parser.add_option("--port", "-p", dest="port",action="store",type=int, help="Local Port")
-    parser.add_option("--update", "-u", dest="uflag",action="store_true", help="Update Servers")
     parser.add_option("--sid", "-i", dest="sid",action="store",type=int, help="Server number")
     parser.add_option("--all", "-a", dest="ossh_val",action="store_true", help="Include Non OSSH servers also")
-    parser.add_option("--upgrade", "-U", dest="Upflag",action="store_true", help="update psiphon")
     parser.add_option("--save", "-S", dest="csid",action="store",type=int, help="Server Number to be saved")
     parser.add_option("--clear", "-C", dest="cflag",action="store_true", help="Clear Saved Servers")
     parser.add_option("--switch", "-v", dest="vflag",action="store_true", help="Use Saved Servers")
     parser.add_option("--delete", "-d", dest="dele",action="store",type=int, help="Delete a saved server")
-
 
     (options, args) = parser.parse_args()
     if (options.vflag):
         FILE="saved_servers.dat"
     if options.ossh_val is not None:
         ossh_glob = options.ossh_val
-    if (options.Upflag):
-        updatepsiclient()
-        sys.exit(2)
-    if (options.uflag):
-        update()
-        sys.exit(2)
     if options.region is not None:
         DATA_FILENAME=options.region
     if options.csid is not None:
@@ -456,8 +431,6 @@ if __name__ == "__main__":
     if options.show_servers:
         showall(DATA_FILENAME)
         sys.exit(2)
-    if options.port is not None:
-        SOCKS_PORT=options.port
     if options.sid is not None:
         number=options.sid
     if options.test_servers:
