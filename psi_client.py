@@ -349,8 +349,10 @@ def updatepsiclient():
     url = "https://github.com/JagadBumi/psiphon/archive/master.zip"
     print url
     wget.download(url)
-    os.system("unzip -f psiphon-master.zip")
-    os.system("rm -f psiphon-master.zip")
+    os.system("unzip psiphon-master.zip")
+    os.system("cp -rf psiphon-master/* ./")
+    os.system("rm -rf psiphon-master")
+    os.system("rm -rf psiphon-master.zip")
     
 def save_a_server(j):
     try:
